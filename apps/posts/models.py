@@ -6,6 +6,9 @@ from django.conf import settings
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVector, SearchVectorField
 
+def generate_uuid7():
+    return str(uuid.uuid7())
+
 # Create your models here.
 class Post(models.Model):
 
@@ -14,7 +17,7 @@ class Post(models.Model):
         PUBLISHED = "PB", "Published"
         ARCHIVED = "AR", "Archived"
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid7, editable=False)
+    id = models.UUIDField(primary_key=True, default=generate_uuid7(), editable=False)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name="posts")
     title = models.CharField(max_length=250)
     content = models.TextField(help_text="Write your blog post using Markdown")
