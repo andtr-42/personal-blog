@@ -17,7 +17,7 @@ class Post(models.Model):
         PUBLISHED = "PB", "Published"
         ARCHIVED = "AR", "Archived"
 
-    id = models.UUIDField(primary_key=True, default=generate_uuid7(), editable=False)
+    id = models.UUIDField(primary_key=True, default=generate_uuid7, editable=False)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True, related_name="posts")
     title = models.CharField(max_length=250)
     content = models.TextField(help_text="Write your blog post using Markdown")

@@ -1,7 +1,7 @@
 from django.urls import path
-from .apis import PostCreateApi
+from .apis import PostApi
 
 app_name = 'posts'
 urlpatterns = [
-    path('', PostCreateApi.as_view(), name="create")
+    path('', PostApi.as_view(), name="list"),
 ]

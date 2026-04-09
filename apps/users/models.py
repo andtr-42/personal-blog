@@ -7,7 +7,7 @@ def generate_uuid7():
 
 # Create your models here.
 class CustomUser(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=generate_uuid7(), editable=False)
+    id = models.UUIDField(primary_key=True, default=generate_uuid7, editable=False)
     is_reader = models.BooleanField(default=True)
     is_writer = models.BooleanField(default=False)
 
