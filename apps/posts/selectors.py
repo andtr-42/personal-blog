@@ -21,3 +21,14 @@ def post_list(*, reader: CustomUser, limit: int = 10, offset: int = 0) -> Dict[s
         "count": total_count,
         "results": qs[offset: offset + limit]
     }
+
+def post_detail(post_id: str) -> Post:
+
+    qs = Post.objects.select_related("author")
+
+    qs = qs.filter(id=post_id, status=Post.Status.PUBLISHED, deleted_at=None).first()
+
+    if not qs:
+        return None
+
+    return qs
