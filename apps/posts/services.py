@@ -118,7 +118,7 @@ def post_delete(*, post_id, author: CustomUser):
     if not post_instance:
         raise Post.DoesNotExist
 
-    if author.id != post_instance.author.id:
+    if str(author.id) != str(post_instance.author.id):
         raise PermissionError("Not valid author.")
 
     post_instance.deleted_at = timezone.now()

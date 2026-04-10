@@ -1,0 +1,10 @@
+[run]
+source = .
+omit = 
+    manage.py
+    config/*
+    */migrations/*
+    */tests/*
+
+[report]
+show_missing = True

@@ -84,10 +84,17 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("POSTGRES_URL", "postgres://user:pass@local:5432/dbname"),
+        default=os.getenv(
+            "POSTGRES_URL",
+            "postgres://personal_blog_admin:personal_blog_admin_123@localhost:5432/personal_blog_db",
+        ),
         conn_max_age=600,
         conn_health_checks=True,
     )
+}
+
+DATABASES["default"]["TEST"] = {
+    "DEPENDENCIES": [],
 }
 
 
