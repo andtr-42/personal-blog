@@ -7,24 +7,34 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('posts', '0001_initial'),
+        ("posts", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='author',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='posts', to=settings.AUTH_USER_MODEL),
+            model_name="post",
+            name="author",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="posts",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddIndex(
-            model_name='post',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['search_vector'], name='search_vector_idx'),
+            model_name="post",
+            index=django.contrib.postgres.indexes.GinIndex(
+                fields=["search_vector"], name="search_vector_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='post',
-            index=models.Index(fields=['status', 'deleted_at', 'created_at'], name='status_deleted_created_idx'),
+            model_name="post",
+            index=models.Index(
+                fields=["status", "deleted_at", "created_at"],
+                name="status_deleted_created_idx",
+            ),
         ),
     ]

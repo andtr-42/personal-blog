@@ -4,15 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('posts', '0002_post_author_post_search_vector_idx_and_more'),
+        ("posts", "0002_post_author_post_search_vector_idx_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='post',
-            name='id',
-            field=models.UUIDField(default='019d6773-d8ed-79d3-984f-a26f368718f2', editable=False, primary_key=True, serialize=False),
+            model_name="post",
+            name="id",
+            field=models.UUIDField(
+                default="019d6773-d8ed-79d3-984f-a26f368718f2",
+                editable=False,
+                primary_key=True,
+                serialize=False,
+            ),
         ),
     ]

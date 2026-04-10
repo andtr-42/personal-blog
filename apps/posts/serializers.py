@@ -1,11 +1,14 @@
-from rest_framework import serializers 
+from rest_framework import serializers
+
 from .models import Post
+
 
 class PostCreateSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=250)
     content = serializers.CharField()
-    status = serializers.ChoiceField(choices=[('DF', 'Draft'), ('PB', 'Published')])
-    
+    status = serializers.ChoiceField(choices=[("DF", "Draft"), ("PB", "Published")])
+
+
 class PostListSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=250)
     content_html = serializers.CharField()
@@ -16,6 +19,7 @@ class PostListSerializer(serializers.Serializer):
 
     def get_is_published(self, obj):
         return obj.status == Post.Status.PUBLISHED
+
 
 class PostDetailSerializer(serializers.Serializer):
     title = serializers.CharField(max_length=250)

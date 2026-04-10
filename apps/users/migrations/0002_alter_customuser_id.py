@@ -4,15 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='customuser',
-            name='id',
-            field=models.UUIDField(default='019d6773-d8ec-7523-accc-4591176ad6f3', editable=False, primary_key=True, serialize=False),
+            model_name="customuser",
+            name="id",
+            field=models.UUIDField(
+                default="019d6773-d8ec-7523-accc-4591176ad6f3",
+                editable=False,
+                primary_key=True,
+                serialize=False,
+            ),
         ),
     ]

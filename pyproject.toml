@@ -14,6 +14,7 @@ dependencies = [
     "djangorestframework-simplejwt>=5.5.1",
     "drf-spectacular>=0.29.0",
     "markdown>=3.10.2",
+    "pre-commit>=4.5.1",
     "psycopg[binary]>=3.3.3",
     "python-dotenv>=1.2.2",
     "uuid-utils>=0.14.1",
@@ -25,3 +26,19 @@ dev = [
     "pytest-django>=4.12.0",
     "ruff>=0.15.9",
 ]
+
+[tool.ruff]
+# Target version for Python features
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+# "E" and "F" are standard PEP8/Flake8 rules
+# "I" handles import sorting (replaces isort)
+# "UP" handles upgrade suggestions (modern Python syntax)
+select = ["E", "F", "I", "UP", "N"]
+ignore = ["D203"] # Example: ignoring specific docstring rules
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
