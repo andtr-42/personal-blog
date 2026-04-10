@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from .models import Post
 from .selectors import post_detail, post_list
 from .serializers import PostCreateSerializer, PostDetailSerializer, PostListSerializer
-from .services import post_create, post_update
+from .services import post_create, post_delete, post_update
 
 
 class PostApi(APIView):
@@ -49,7 +49,7 @@ class PostApi(APIView):
         return Response({"id": post_instance.id}, status=status.HTTP_201_CREATED)
 
 
-class PostDetailUpdatelApi(APIView):
+class PostDetailUpdateDeleteApi(APIView):
     def get_serializer_class(self):
         if self.request.method == "PUT":
             return PostCreateSerializer
@@ -94,3 +94,21 @@ class PostDetailUpdatelApi(APIView):
             )
 
         return Response({"id": post_instance.id}, status=status.HTTP_200_OK)
+
+    def delete(self, request, post_id):
+        try:
+            post_instance = post_delete(post_id=post_id, author=request.user)
+
+        except ValidationError as e:
+            return Response({"detail": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except PermissionError as e:
+            return Response({"detail": str(e)}, status=status.HTTP_403_FORBIDDEN)
+        except Post.DoesNotExist:
+            return Response(
+                {"detail": "Post not found."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        return Response(
+            {"detail": f"Post with ID {post_instance.id} has been deleted"},
+            status=status.HTTP_200_OK,
+        )

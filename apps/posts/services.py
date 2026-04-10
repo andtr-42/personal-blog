@@ -105,3 +105,24 @@ def post_update(
             post_instance.save(update_fields=updated_fields)
 
         return post_instance
+
+
+def post_delete(*, post_id, author: CustomUser):
+    if not author.is_writer:
+        raise ValidationError("User must be a writer to update a post.")
+
+    ps = Post.objects.select_related("author")
+
+    post_instance = ps.filter(id=post_id, deleted_at=None).first()
+
+    if not post_instance:
+        raise Post.DoesNotExist
+
+    if author.id != post_instance.author.id:
+        raise PermissionError("Not valid author.")
+
+    post_instance.deleted_at = timezone.now()
+
+    post_instance.save()
+
+    return post_instance
