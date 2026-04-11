@@ -22,6 +22,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "bandit>=1.9.4",
     "coverage>=7.13.5",
     "factory-boy>=3.3.3",
     "pytest>=9.0.2",
@@ -41,6 +42,8 @@ line-length = 88
 # "UP" handles upgrade suggestions (modern Python syntax)
 select = ["E", "F", "I", "UP", "N"]
 ignore = ["D203"] # Example: ignoring specific docstring rules
+# Ignore line-length (E501) in migration files
+extend-per-file-ignores = { "**/migrations/*.py" = ["E501"] }
 
 [tool.ruff.format]
 quote-style = "double"

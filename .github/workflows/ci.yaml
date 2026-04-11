@@ -1,0 +1,43 @@
+name: Python CI
+
+on: # define lists of events
+  push:
+    branches: ["main"]
+
+jobs: # group of actions to be executed
+  quality-assurance:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+      env:
+        POSTGRES_DB: dbname
+        POSTGRES_USERNAME: user
+        POSTGRES_PASSWORD: pass
+      ports:
+        - 5432:5432
+      options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      uses: actions/checkout@v4
+      uses: astral-sh/setup-uv@3
+
+    - name: Run Lint & Format
+      run: uv run ruff check .
+
+    - name: Run Security Scan
+      run: uv run bandit -r apps/ --exclude "**/tests/*"
+
+    - name: Check for missing migrations
+      run: uv run python manage.py makemigrations --check --dry-run
+
+    - name: Run Unit & Integration Tests
+      run: uv run pytest
+      env:  
+        DATABASE_URL: postgres://user:pass@localhost:5432/dbname
+
