@@ -65,14 +65,14 @@ jobs:
 
       - name: Tag the image
         uses: docker/metadata-action@v5
-        images: andtr4201/personal-blog
         id: meta
-
+        with: # <--- Added 'with' keyword
+          images: andtr4201/personal-blog
 
       - name: Build and Push
         uses: docker/build-push-action@v6
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-
+        with: # <--- Added 'with' keyword
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
